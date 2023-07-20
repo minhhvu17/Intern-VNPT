@@ -13,6 +13,7 @@ class Connector:
     def insert(self, name, address):
         self.cursor.execute("INSERT INTO customers (name, address) VALUES (%s, %s)", (name, address))
         self.database.commit()
+        self.cursor.close()
         return True
     
     def update(self, name, address, new_name, new_address):
@@ -20,6 +21,7 @@ class Connector:
             "UPDATE customers SET name = %s, address = %s WHERE name = %s AND address = %s", (new_name, new_address, name, address)
         )
         self.database.commit()
+        self.cursor.close()
         return True
     
     def delete(self, name, address):
@@ -27,16 +29,17 @@ class Connector:
             "DELETE FROM customers WHERE name = %s AND address = %s", (name, address)
         )
         self.database.commit()
+        self.cursor.close()
         return True
     
 def main():
     db = Connector()
-    # db.insert('Vu', 'Dai Mo')
-    # db.insert('Tung', 'Duc Dien')
+    db.insert('Vu', 'Dai Mo')
+    db.insert('Tung', 'Duc Dien')
     
     # db.update('Vu', 'Dai Mo', 'Vu', 'NTL')
     
-    db.delete('Tung', 'Duc Dien')
+    # db.delete('Tung', 'Duc Dien')
     
 if __name__ == '__main__':
     main()
